@@ -1,0 +1,12 @@
+$wid: 200px;
+$hei: 200px;
+$bac: red;
+$body-color: red;
+
+#test{
+    display: inline-block;
+    width: 600px;
+    height: 800px;
+    // background-color: $body-color;
+    background-image:url(../../../public/img/1.jpg);
+}
