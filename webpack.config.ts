@@ -1,4 +1,6 @@
 const path = require('path')
+const ESLintPlugin = require('eslint-webpack-plugin');
+
 module.exports = {
     entry:'./src/index.ts',
     output:{
@@ -43,11 +45,18 @@ module.exports = {
             // 处理js资源
             {
                 test: /\.(js|jsx)$/i,
-                use: 'babel-loader'
+                use: "babel-loader"
             },
             {
-                test: /\.ts$/i,
-                use: ["ts-loader"]
+                test: /\.(ts|tsx)?$/,
+                use: [
+                    {
+                    loader: 'ts-loader',
+                    options: {
+                        transpileOnly: true,
+                    },
+                    },
+                ],
             },
         ]
     },
@@ -55,7 +64,10 @@ module.exports = {
         extensions: ['.tsx', '.ts', '.js'],
     },
     plugins: [
-
+        new ESLintPlugin({
+            context : path.resolve(__dirname,'./src'),
+            extensions : ['.js','.jsx','.ts','.tsx','.html']
+        })
     ],
     // 开发模式
     mode: 'development', // production

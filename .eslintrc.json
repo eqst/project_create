@@ -1,0 +1,28 @@
+{
+    "extends":["eslint:recommended"],
+    "env": {
+        "node": true,
+        "browser": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "rules": {
+        "semi": "warn",
+        "array-callback-return":"warn",
+        "default-case":"warn",
+        "eqeqeq":"warn",
+        "no-cond-assign":"warn",
+        "no-dupe-args":"warn",
+        "no-empty":"warn",
+        "no-func-assign":"warn",
+        "no-multi-spaces":"warn",
+        "no-unused-vars":"warn",
+        "no-use-before-define":"warn",
+        "no-var":"warn"
+    }
+}
