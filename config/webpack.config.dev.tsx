@@ -2,6 +2,7 @@ const path = require('path');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const HtmlWbepackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 // 统一处理 样式资源
 function getStyle (pre:string) {
@@ -84,6 +85,10 @@ module.exports = {
                 ],
             },
         ]
+    },
+    optimization: {
+        // [...]
+        minimize: true,
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],

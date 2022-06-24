@@ -2,6 +2,7 @@ const path = require('path');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const HtmlWbepackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = {
     entry:'./src/index.ts',
@@ -61,6 +62,12 @@ module.exports = {
                 ],
             },
         ]
+    },
+    optimization: {
+        // [...]optimization.minimizer
+        minimizer: [
+            new CssMinimizerPlugin()
+        ],
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
