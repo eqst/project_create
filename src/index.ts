@@ -6,7 +6,7 @@ import './pages/css/test.scss'
 set_count()
 
 // var archer = 1
-function set_num ( x : number, y : number ) : number  {
+const set_num = ( x : number, y : number ) : number =>  {
     switch (x) {
         case 3:
             console.log(x)

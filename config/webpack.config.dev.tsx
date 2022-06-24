@@ -1,10 +1,35 @@
-const path = require('path')
+const path = require('path');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const HtmlWbepackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+// 统一处理 样式资源
+function getStyle (pre:string) {
+    return [
+        MiniCssExtractPlugin.loader,
+        "css-loader",
+        {
+            loader: "postcss-loader",
+            options: {
+                postcssOptions: {
+                    plugins: [
+                        [
+                            "postcss-preset-env",
+                            {
+                                // Options
+                            },
+                        ],
+                    ],
+                },
+            },
+        },
+        pre
+    ].filter(Boolean)
+}
 module.exports = {
     entry:'./src/index.ts',
     output:{
-        path: path.resolve(__dirname,'dist'), // 所有文件打包输出木鹿
+        path: undefined, // 开发模式没有输出
         filename: 'js/main.js', // 所有js文件去js目录下
         clean : true, // 清空上次打包结果
     },
@@ -15,11 +40,11 @@ module.exports = {
             // 处理css资源
             {
                 test: /\.css$/i,
-                use: ["style-loader", "css-loader"],
+                use: getStyle('')
             },
             {
                 test: /\.s[ac]ss$/i,
-                use: ["style-loader", "css-loader", "sass-loader"],
+                use: getStyle('sass-loader')
             },
             // 处理图片资源
             {
@@ -64,11 +89,21 @@ module.exports = {
         extensions: ['.tsx', '.ts', '.js'],
     },
     plugins: [
-        new ESLintPlugin({
-            context : path.resolve(__dirname,'./src'),
-            extensions : ['.js','.jsx','.ts','.tsx','.html']
+        // new ESLintPlugin({
+        //     context : path.resolve(__dirname,'src'),
+        //     extensions : ['.js','.jsx','.ts','.tsx','.html']
+        // }),
+        new MiniCssExtractPlugin(),
+        new HtmlWbepackPlugin({
+            // 自动引入 已该文件为模板
+            template: path.resolve(__dirname,'../public/index.html')
         })
     ],
+    devServer: {
+        host: "localhost", // 启动服务器域名
+        port: "3000",
+        open: true
+    },
     // 开发模式
     mode: 'development', // production
 }
